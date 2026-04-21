@@ -20,7 +20,7 @@ const sans = DM_Sans({
 
 export const metadata: Metadata = {
   title: "Imre Guaglianone — Experience Designer · Researcher · Founder",
-  description: "Design lead with 12+ years shaping products at the intersection of behavioral design, systems thinking, and product execution.",
+  description: "Design lead with 15+ years shaping products at the intersection of behavioral design, systems thinking, and product execution.",
 };
 
 export default function RootLayout({

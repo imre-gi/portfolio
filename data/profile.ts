@@ -11,7 +11,7 @@ export const profile: Profile = {
     "A successful experience isn't handed to users — it happens when people are empowered to interact with systems on their own terms.",
   tagline:
     "Design lead at the intersection of behavioral design, systems thinking, and product execution.",
-  bio: `I'm Imre Guaglianone, a design lead with 12+ years shaping products and services across digital interfaces and real-world touchpoints. I thrive at the intersection of behavioral design, systems thinking, and product execution — I don't just sketch flows; I align teams, data, and technology to remove friction and let outcomes speak.
+  bio: `I'm Imre Guaglianone, a design lead with 15+ years shaping products and services across digital interfaces and real-world touchpoints. I thrive at the intersection of behavioral design, systems thinking, and product execution — I don't just sketch flows; I align teams, data, and technology to remove friction and let outcomes speak.
 
 At Instacoins, I overhauled a complex signup flow, driving a +38% YoY increase in registrations and cutting KYC completion time to under 4 days for 90% of users. For Betika, I redesigned the platform to run seamlessly on feature phones in Africa, where bandwidth is scarce and data costs high, ensuring accessibility and boosting retention in their largest market.
 

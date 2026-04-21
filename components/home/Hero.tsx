@@ -25,12 +25,12 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto w-full">
+      <div className="relative z-10 max-w-350 mx-auto w-full">
         <div className="space-y-8">
           {/* Index marker */}
           <motion.p
             {...fadeUpProps(0.1)}
-            className="text-xs tracking-[0.3em] uppercase text-[#888888] font-[family-name:var(--font-sans)]"
+            className="text-xs tracking-[0.3em] uppercase text-[#888888] font-sans"
           >
             Portfolio — 2025
           </motion.p>
@@ -39,7 +39,7 @@ export default function Hero() {
           <div className="overflow-hidden">
             <motion.h1
               {...fadeUpProps(0.2)}
-              className="font-[family-name:var(--font-serif)] leading-[0.92] text-[#F5F0E8]"
+              className="font-serif leading-[0.92] text-[#F5F0E8]"
               style={{ fontSize: "clamp(4rem, 10vw, 12rem)" }}
             >
               IMRE
@@ -51,7 +51,7 @@ export default function Hero() {
           {/* Title */}
           <motion.p
             {...fadeUpProps(0.4)}
-            className="font-[family-name:var(--font-sans)] text-sm tracking-[0.15em] uppercase text-[#888888]"
+            className="font-sans text-sm tracking-[0.15em] uppercase text-[#888888]"
           >
             {profile.title}
           </motion.p>
@@ -59,7 +59,7 @@ export default function Hero() {
           {/* Philosophy quote */}
           <motion.p
             {...fadeUpProps(0.55)}
-            className="font-[family-name:var(--font-serif)] italic text-[#F5F0E8]/70 max-w-2xl leading-relaxed"
+            className="font-serif italic text-[#F5F0E8]/70 max-w-2xl leading-relaxed"
             style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.4rem)" }}
           >
             &ldquo;{profile.philosophy}&rdquo;
@@ -70,11 +70,11 @@ export default function Hero() {
             {...fadeUpProps(0.7)}
             className="flex items-center justify-between pt-4 border-t border-[#222222]"
           >
-            <p className="text-xs text-[#888888] font-[family-name:var(--font-sans)]">
+            <p className="text-xs text-[#888888] font-sans">
               {profile.location}
             </p>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-[#888888] font-[family-name:var(--font-sans)]">
+              <span className="text-xs text-[#888888] font-sans">
                 Scroll
               </span>
               <motion.div
