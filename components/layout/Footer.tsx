@@ -24,6 +24,12 @@ export default function Footer() {
             Work
           </Link>
           <Link
+            href="/services"
+            className="text-sm text-[#888888] hover:text-[#F5F0E8] transition-colors font-[family-name:var(--font-sans)]"
+          >
+            Services
+          </Link>
+          <Link
             href="/about"
             className="text-sm text-[#888888] hover:text-[#F5F0E8] transition-colors font-[family-name:var(--font-sans)]"
           >
