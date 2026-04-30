@@ -2,16 +2,23 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { experience } from "@/data/experience";
+import { experience as enExperience } from "@/data/experience";
+import type { ExperienceEntry } from "@/types";
 
-export default function Timeline() {
+interface TimelineProps {
+  experience?: ExperienceEntry[];
+}
+
+export default function Timeline({ experience }: TimelineProps) {
+  const list = experience ?? enExperience;
+
   return (
     <div className="relative">
       {/* Vertical line */}
       <div className="absolute left-0 md:left-[2px] top-0 bottom-0 w-px bg-[#222222]" />
 
       <div className="space-y-16 pl-8 md:pl-12">
-        {experience.map((entry, i) => (
+        {list.map((entry, i) => (
           <TimelineEntry key={i} entry={entry} index={i} />
         ))}
       </div>
@@ -20,7 +27,7 @@ export default function Timeline() {
 }
 
 interface TimelineEntryProps {
-  entry: (typeof experience)[0];
+  entry: ExperienceEntry;
   index: number;
 }
 

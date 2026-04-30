@@ -7,6 +7,7 @@ import type { CaseStudy } from "@/types";
 interface CaseStudyCardProps {
   study: CaseStudy;
   index: number;
+  prefix?: string;
 }
 
 const categoryColors: Record<string, string> = {
@@ -16,7 +17,7 @@ const categoryColors: Record<string, string> = {
   founding: "#C87EA8",
 };
 
-export default function CaseStudyCard({ study, index }: CaseStudyCardProps) {
+export default function CaseStudyCard({ study, index, prefix = "" }: CaseStudyCardProps) {
   const num = String(index + 1).padStart(2, "0");
   const accentColor = categoryColors[study.category] ?? "#888888";
 
@@ -28,7 +29,7 @@ export default function CaseStudyCard({ study, index }: CaseStudyCardProps) {
       transition={{ duration: 0.4, delay: index * 0.05 }}
       className="group"
     >
-      <Link href={`/work/${study.slug}`} className="block">
+      <Link href={`${prefix}/work/${study.slug}`} className="block">
         <div className="flex flex-col md:flex-row md:items-center gap-4 py-6 border-b border-[#1A1A1A] group-hover:border-[#333333] transition-colors">
           {/* Index */}
           <span className="text-sm text-[#444444] font-[family-name:var(--font-sans)] w-10 shrink-0">

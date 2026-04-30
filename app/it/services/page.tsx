@@ -1,13 +1,13 @@
 import Link from "next/link";
-import { services } from "@/data/services";
+import { services } from "@/data/it/services";
 
 export const metadata = {
-  title: "Services — Imre Guaglianone",
+  title: "Servizi — Imre Guaglianone",
   description:
-    "Product validation, user research, service design, UX design, business process optimisation, corporate training, and fractional CXO.",
+    "Validazione di prodotto, ricerca utente, service design, UX design, ottimizzazione dei processi aziendali, formazione aziendale e CXO Fractional.",
 };
 
-export default function ServicesPage() {
+export default function ServicesPageIT() {
   return (
     <div className="pt-32 pb-24 px-6 md:px-12">
       <div className="max-w-[1400px] mx-auto">
@@ -15,14 +15,14 @@ export default function ServicesPage() {
         {/* Page heading */}
         <div className="mb-24">
           <p className="text-xs tracking-[0.2em] uppercase text-[#888888] font-[family-name:var(--font-sans)] mb-6">
-            Services
+            Servizi
           </p>
           <h1
             className="font-[family-name:var(--font-serif)] text-[#F5F0E8] leading-[1.0] mb-12"
             style={{ fontSize: "clamp(3rem, 7vw, 8rem)" }}
           >
-            How I can<br />
-            <span className="text-[#C8A96E]">help</span> you.
+            Come posso<br />
+            <span className="text-[#C8A96E]">aiutarti</span>.
           </h1>
         </div>
 
@@ -31,7 +31,7 @@ export default function ServicesPage() {
           {services.map((service) => (
             <Link
               key={service.index}
-              href={`/services/${service.slug}`}
+              href={`/it/services/${service.slug}`}
               className="group py-10 border-b border-[#1A1A1A] md:odd:pr-16 md:even:pl-16 md:odd:border-r md:odd:border-r-[#1A1A1A] block"
             >
               <span className="font-[family-name:var(--font-serif)] text-[#333333] text-sm leading-none mb-4 block">
@@ -50,7 +50,7 @@ export default function ServicesPage() {
                 {service.description}
               </p>
               <span className="text-xs tracking-[0.15em] uppercase text-[#555555] group-hover:text-[#C8A96E] transition-colors font-[family-name:var(--font-sans)]">
-                Learn more →
+                Scopri di più →
               </span>
             </Link>
           ))}
@@ -60,20 +60,20 @@ export default function ServicesPage() {
         <div className="border-t border-[#222222] pt-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           <div>
             <p className="text-xs tracking-[0.2em] uppercase text-[#888888] font-[family-name:var(--font-sans)] mb-4">
-              Ready to work together?
+              Pronti a lavorare insieme?
             </p>
             <p
               className="font-[family-name:var(--font-serif)] text-[#F5F0E8] leading-snug max-w-lg"
               style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}
             >
-              Every engagement starts with a conversation — no pitch, no proposal until I understand your situation.
+              Ogni collaborazione inizia con una conversazione — nessun pitch, nessuna proposta finché non capisco la tua situazione.
             </p>
           </div>
           <Link
-            href="/contact"
+            href="/it/contact"
             className="inline-flex items-center gap-2 border border-[#333333] px-6 py-4 text-xs tracking-[0.15em] uppercase text-[#F5F0E8] hover:border-[#C8A96E] hover:text-[#C8A96E] transition-colors font-[family-name:var(--font-sans)] shrink-0"
           >
-            Get in touch
+            Contattami
             <span>→</span>
           </Link>
         </div>

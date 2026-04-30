@@ -2,8 +2,8 @@ import type { Profile } from "@/types";
 
 export const profile: Profile = {
   name: "Imre Guaglianone",
-  title: "Experience Designer · Researcher · Founder",
-  location: "Remote (Europe)",
+  title: "Experience Designer · Researcher · Founder  · Speaker  · Mentor",
+  location: "Remote (Europe) - Based in Bologna",
   email: "imre.guaglianone@gmail.com",
   linkedin: "https://linkedin.com/in/imreguaglianone",
   phone: "+39 351 7675459",

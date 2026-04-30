@@ -3,10 +3,17 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { getDict, type Locale } from "@/lib/i18n";
 
-export default function AboutTeaser() {
+interface AboutTeaserProps {
+  locale?: Locale;
+}
+
+export default function AboutTeaser({ locale = "en" }: AboutTeaserProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-15% 0px" });
+  const t = getDict(locale);
+  const prefix = locale === "it" ? "/it" : "";
 
   return (
     <section className="py-32 px-6 md:px-12 border-t border-[#222222]">
@@ -25,13 +32,13 @@ export default function AboutTeaser() {
             transition={{ duration: 0.8, delay: 0.1, ease: [0.215, 0.61, 0.355, 1] as [number, number, number, number] }}
           >
             <p className="text-xs tracking-[0.2em] uppercase text-[#888888] font-sans mb-6">
-              About
+              {t.home.aboutLabel}
             </p>
             <h2
               className="font-serif text-[#F5F0E8] leading-[1.08]"
               style={{ fontSize: "clamp(1.8rem, 3.5vw, 3.2rem)" }}
             >
-              15+ years designing products that actually change how people interact with systems.
+              {t.home.aboutStatement}
             </h2>
           </motion.div>
 
@@ -43,16 +50,16 @@ export default function AboutTeaser() {
             className="flex flex-col justify-end gap-6"
           >
             <p className="text-[#888888] font-sans leading-relaxed" style={{ fontSize: "1rem" }}>
-              I thrive at the intersection of behavioral design, systems thinking, and product execution — aligning teams, data, and technology to remove friction and let outcomes speak.
+              {t.home.aboutExcerpt1}
             </p>
             <p className="text-[#888888] font-sans leading-relaxed" style={{ fontSize: "1rem" }}>
-              From iGaming to Fintech, from IoT to founding my own AI-native platform — the contexts change, the evidence-first approach stays constant.
+              {t.home.aboutExcerpt2}
             </p>
             <Link
-              href="/about"
+              href={`${prefix}/about`}
               className="inline-flex items-center gap-2 text-sm text-[#C8A96E] hover:text-[#F5F0E8] transition-colors font-sans group w-fit"
             >
-              Full story
+              {t.home.fullStory}
               <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
             </Link>
           </motion.div>

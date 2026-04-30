@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { profile } from "@/data/profile";
+import { profile as enProfile } from "@/data/profile";
+import type { Profile } from "@/types";
+import { getDict, type Locale } from "@/lib/i18n";
 
 const easing = [0.215, 0.61, 0.355, 1] as [number, number, number, number];
 
@@ -13,7 +15,15 @@ function fadeUpProps(delay: number) {
   };
 }
 
-export default function Hero() {
+interface HeroProps {
+  locale?: Locale;
+  profile?: Profile;
+}
+
+export default function Hero({ locale = "en", profile }: HeroProps) {
+  const t = getDict(locale);
+  const p = profile ?? enProfile;
+
   return (
     <section className="relative min-h-screen flex flex-col justify-end pb-20 px-6 md:px-12 pt-24 overflow-hidden">
       {/* Subtle background noise texture */}
@@ -27,14 +37,6 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-350 mx-auto w-full">
         <div className="space-y-8">
-          {/* Index marker */}
-          <motion.p
-            {...fadeUpProps(0.1)}
-            className="text-xs tracking-[0.3em] uppercase text-[#888888] font-sans"
-          >
-            Portfolio — 2025
-          </motion.p>
-
           {/* Main name — massive type */}
           <div className="overflow-hidden">
             <motion.h1
@@ -53,7 +55,7 @@ export default function Hero() {
             {...fadeUpProps(0.4)}
             className="font-sans text-sm tracking-[0.15em] uppercase text-[#888888]"
           >
-            {profile.title}
+            {p.title}
           </motion.p>
 
           {/* Philosophy quote */}
@@ -62,7 +64,7 @@ export default function Hero() {
             className="font-serif italic text-[#F5F0E8]/70 max-w-2xl leading-relaxed"
             style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.4rem)" }}
           >
-            &ldquo;{profile.philosophy}&rdquo;
+            &ldquo;{p.philosophy}&rdquo;
           </motion.p>
 
           {/* Bottom row */}
@@ -71,11 +73,11 @@ export default function Hero() {
             className="flex items-center justify-between pt-4 border-t border-[#222222]"
           >
             <p className="text-xs text-[#888888] font-sans">
-              {profile.location}
+              {p.location}
             </p>
             <div className="flex items-center gap-2">
               <span className="text-xs text-[#888888] font-sans">
-                Scroll
+                {t.home.scroll}
               </span>
               <motion.div
                 animate={{ y: [0, 6, 0] }}

@@ -4,49 +4,41 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { caseStudies } from "@/data/caseStudies";
+import { caseStudies as enCaseStudies } from "@/data/caseStudies";
+import type { CaseStudy } from "@/types";
+import { getDict, type Locale } from "@/lib/i18n";
 
-const featured = caseStudies.filter((cs) => cs.featured);
+interface SelectedWorkProps {
+  locale?: Locale;
+  studies?: CaseStudy[];
+}
 
-const indices = ["01", "02", "03"];
+export default function SelectedWork({ locale = "en", studies }: SelectedWorkProps) {
+  const t = getDict(locale);
+  const prefix = locale === "it" ? "/it" : "";
+  const featured = (studies ?? enCaseStudies).filter((cs) => cs.featured);
+  const indices = ["01", "02", "03"];
 
-export default function SelectedWork() {
   return (
     <section className="py-32 px-6 md:px-12">
       <div className="max-w-350 mx-auto">
         {/* Section label */}
         <div className="flex items-center justify-between mb-20">
           <p className="text-xs tracking-[0.2em] uppercase text-[#888888] font-sans">
-            Selected Work
+            {t.home.selectedWork}
           </p>
           <Link
-            href="/work"
+            href={`${prefix}/work`}
             className="text-xs tracking-[0.15em] uppercase text-[#888888] hover:text-[#C8A96E] transition-colors font-sans group"
           >
-            All projects
+            {t.home.allProjects}
             <span className="inline-block ml-1 group-hover:translate-x-1 transition-transform">→</span>
           </Link>
         </div>
 
-        {/* Project 1: Large left + right text */}
-        <ProjectRow
-          index={indices[0]}
-          study={featured[0]}
-          layout="image-left"
-        />
-
-        {/* Project 2: Right image + left text */}
-        <ProjectRow
-          index={indices[1]}
-          study={featured[1]}
-          layout="image-right"
-        />
-
-        {/* Project 3: Full-width strip */}
-        <ProjectFullWidth
-          index={indices[2]}
-          study={featured[2]}
-        />
+        <ProjectRow index={indices[0]} study={featured[0]} layout="image-left" locale={locale} prefix={prefix} t={t} />
+        <ProjectRow index={indices[1]} study={featured[1]} layout="image-right" locale={locale} prefix={prefix} t={t} />
+        <ProjectFullWidth index={indices[2]} study={featured[2]} locale={locale} prefix={prefix} t={t} />
       </div>
     </section>
   );
@@ -54,16 +46,19 @@ export default function SelectedWork() {
 
 interface ProjectRowProps {
   index: string;
-  study: (typeof caseStudies)[0];
+  study: CaseStudy;
   layout: "image-left" | "image-right";
+  locale: Locale;
+  prefix: string;
+  t: ReturnType<typeof getDict>;
 }
 
-function ProjectRow({ index, study, layout }: ProjectRowProps) {
+function ProjectRow({ index, study, layout, prefix, t }: ProjectRowProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-15% 0px" });
 
   const imageCol = (
-    <Link href={`/work/${study.slug}`} className="block group">
+    <Link href={`${prefix}/work/${study.slug}`} className="block group">
       <motion.div
         className="w-full aspect-4/3 relative overflow-hidden"
         whileHover={{ scale: 1.02 }}
@@ -82,10 +77,9 @@ function ProjectRow({ index, study, layout }: ProjectRowProps) {
             className="transition-transform duration-700 group-hover:scale-105"
           />
         )}
-        {/* Hover reveal overlay */}
         <div className="absolute inset-0 bg-[#0A0A0A]/0 group-hover:bg-[#0A0A0A]/30 transition-all duration-500 flex items-center justify-center">
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs tracking-[0.2em] uppercase text-[#F5F0E8] font-sans">
-            View case study →
+            {t.home.viewCaseStudy}
           </span>
         </div>
       </motion.div>
@@ -122,10 +116,10 @@ function ProjectRow({ index, study, layout }: ProjectRowProps) {
           </span>
         ))}
         <Link
-          href={`/work/${study.slug}`}
+          href={`${prefix}/work/${study.slug}`}
           className="ml-auto text-sm text-[#C8A96E] hover:text-[#F5F0E8] transition-colors font-sans group"
         >
-          Read →
+          {t.home.read}
         </Link>
       </div>
     </div>
@@ -156,10 +150,13 @@ function ProjectRow({ index, study, layout }: ProjectRowProps) {
 
 interface ProjectFullWidthProps {
   index: string;
-  study: (typeof caseStudies)[0];
+  study: CaseStudy;
+  locale: Locale;
+  prefix: string;
+  t: ReturnType<typeof getDict>;
 }
 
-function ProjectFullWidth({ index, study }: ProjectFullWidthProps) {
+function ProjectFullWidth({ index, study, prefix, t }: ProjectFullWidthProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-15% 0px" });
 
@@ -170,7 +167,7 @@ function ProjectFullWidth({ index, study }: ProjectFullWidthProps) {
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] as [number, number, number, number] }}
     >
-      <Link href={`/work/${study.slug}`} className="block group">
+      <Link href={`${prefix}/work/${study.slug}`} className="block group">
         <div className="relative w-full overflow-hidden" style={{ minHeight: 320 }}>
           <div
             className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.01]"
@@ -207,7 +204,7 @@ function ProjectFullWidth({ index, study }: ProjectFullWidthProps) {
 
               <div className="shrink-0">
                 <span className="inline-flex items-center gap-2 text-sm text-[#C8A96E] group-hover:text-[#F5F0E8] transition-colors font-sans">
-                  Read case study
+                  {t.work.readCaseStudy}
                   <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
                 </span>
               </div>
