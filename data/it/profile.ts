@@ -8,7 +8,7 @@ export const profile: Profile = {
   linkedin: "https://linkedin.com/in/imreguaglianone",
   phone: "+39 351 7675459",
   philosophy:
-    "Un'esperienza di successo non viene semplicemente consegnata agli utenti — si realizza quando le persone sono messe nelle condizioni di interagire con i sistemi secondo i propri termini.",
+    "Un'esperienza di successo non viene semplicemente consegnata agli utenti — si realizza quando le persone sono nella condizione di interagire con i sistemi secondo i propri termini.",
   tagline:
     "Design lead all'incrocio tra design comportamentale, pensiero sistemico ed esecuzione di prodotto.",
   bio: `Sono Imre Guaglianone, un design lead con oltre 15 anni di esperienza nella progettazione di prodotti e servizi attraverso interfacce digitali e touchpoint nel mondo reale. Mi trovo al mio meglio all'incrocio tra design comportamentale, pensiero sistemico ed esecuzione di prodotto — non mi limito a disegnare flussi; allineo team, dati e tecnologia per eliminare le frizioni e lasciare che i risultati parlino da soli.
