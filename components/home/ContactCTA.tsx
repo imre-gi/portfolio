@@ -1,50 +1,97 @@
 "use client";
 
+import Link from "next/link";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { profile } from "@/data/profile";
+import ChapterHeader from "@/components/shared/ChapterHeader";
+import { getDict, type Locale } from "@/lib/i18n";
 
-export default function ContactCTA() {
+interface ContactCTAProps {
+  locale?: Locale;
+}
+
+export default function ContactCTA({ locale = "en" }: ContactCTAProps) {
+  const t = getDict(locale);
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+  const prefix = locale === "it" ? "/it" : "";
 
   return (
-    <section className="py-32 px-6 md:px-12 border-t border-[#222222]">
-      <div className="max-w-[1400px] mx-auto">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] as [number, number, number, number] }}
-        >
-          <p className="text-xs tracking-[0.2em] uppercase text-[#888888] font-[family-name:var(--font-sans)] mb-10">
-            Get in touch
-          </p>
+    <section id="contact" className="relative">
+      <div className="container-wide py-20 md:py-28">
+        <ChapterHeader
+          number="05"
+          title={t.home.chContact}
+          lead={t.home.chContactLead}
+        />
 
-          <a
-            href={`mailto:${profile.email}`}
-            className="block group w-fit"
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-10">
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{
+              duration: 0.6,
+              ease: [0.2, 0.65, 0.3, 1] as [number, number, number, number],
+            }}
+            className="md:col-span-6"
           >
-            <h2
-              className="font-[family-name:var(--font-serif)] text-[#F5F0E8] leading-none hover:text-[#C8A96E] transition-colors duration-300"
-              style={{ fontSize: "clamp(1.6rem, 4vw, 5rem)" }}
-            >
-              {profile.email}
-            </h2>
-          </a>
+            <p className="t-cover">
+              {locale === "it"
+                ? "Una conversazione di trenta minuti - nessun pitch, niente sales - sulla decisione di prodotto più difficile che hai davanti."
+                : "A thirty-minute conversation — no pitch, no sales — about the hard product decision in front of you."}
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <Link href={`${prefix}/contact`} className="arrow-link">
+                {t.home.contactCtaCall}
+              </Link>
+              <a href={`mailto:${profile.email}`} className="arrow-link">
+                {t.home.contactCtaEmail}
+              </a>
+            </div>
+          </motion.div>
 
-          <div className="mt-10 flex items-center gap-8">
-            <a
-              href={profile.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-[#888888] hover:text-[#F5F0E8] transition-colors font-[family-name:var(--font-sans)] group"
-            >
-              LinkedIn
-              <span className="inline-block ml-1 group-hover:translate-x-1 transition-transform">↗</span>
-            </a>
-          </div>
-        </motion.div>
+          <motion.dl
+            initial={{ opacity: 0, y: 14 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{
+              duration: 0.6,
+              delay: 0.1,
+              ease: [0.2, 0.65, 0.3, 1] as [number, number, number, number],
+            }}
+            className="md:col-span-6 md:col-start-9 grid grid-cols-2 gap-x-6 gap-y-5"
+          >
+            <div className="w-fit">
+              <dt className="t-mono mb-2">EMAIL</dt>
+              <dd className="t-body w-fit">
+                <a href={`mailto:${profile.email}`} className="inline-link ">
+                  {profile.email}
+                </a>
+              </dd>
+            </div>
+            <div className="w-fit">
+              <dt className="t-mono mb-2">PHONE</dt>
+              <dd className="t-body">{profile.phone}</dd>
+            </div>
+            <div className="w-fit">
+              <dt className="t-mono mb-2">LINKEDIN</dt>
+              <dd className="t-body">
+                <a
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-link w-fit"
+                >
+                  /imreguaglianone
+                </a>
+              </dd>
+            </div>
+            <div className="w-fit">
+              <dt className="t-mono mb-2">TZ</dt>
+              <dd className="t-body">CET · UTC+1</dd>
+            </div>
+          </motion.dl>
+        </div>
       </div>
     </section>
   );

@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { caseStudies as enCaseStudies } from "@/data/caseStudies";
+import { decisionsBySlug } from "@/data/decisions";
 import type { CaseStudy } from "@/types";
+import ChapterHeader from "@/components/shared/ChapterHeader";
 import { getDict, type Locale } from "@/lib/i18n";
 
 interface SelectedWorkProps {
@@ -17,201 +18,109 @@ export default function SelectedWork({ locale = "en", studies }: SelectedWorkPro
   const t = getDict(locale);
   const prefix = locale === "it" ? "/it" : "";
   const featured = (studies ?? enCaseStudies).filter((cs) => cs.featured);
-  const indices = ["01", "02", "03"];
 
   return (
-    <section className="py-32 px-6 md:px-12">
-      <div className="max-w-350 mx-auto">
-        {/* Section label */}
-        <div className="flex items-center justify-between mb-20">
-          <p className="text-xs tracking-[0.2em] uppercase text-[#888888] font-sans">
-            {t.home.selectedWork}
-          </p>
-          <Link
-            href={`${prefix}/work`}
-            className="text-xs tracking-[0.15em] uppercase text-[#888888] hover:text-[#C8A96E] transition-colors font-sans group"
-          >
-            {t.home.allProjects}
-            <span className="inline-block ml-1 group-hover:translate-x-1 transition-transform">→</span>
-          </Link>
-        </div>
+    <section id="work" className="relative">
+      <div className="container-wide py-20 md:py-28">
+        <ChapterHeader
+          number={locale === "it" ? "01" : "01"}
+          title={t.home.chSelectedWork}
+          lead={t.home.chSelectedWorkLead}
+          link={{ href: `${prefix}/work`, label: t.home.chSelectedWorkAll }}
+        />
 
-        <ProjectRow index={indices[0]} study={featured[0]} layout="image-left" locale={locale} prefix={prefix} t={t} />
-        <ProjectRow index={indices[1]} study={featured[1]} layout="image-right" locale={locale} prefix={prefix} t={t} />
-        <ProjectFullWidth index={indices[2]} study={featured[2]} locale={locale} prefix={prefix} t={t} />
+        <ol className="grid grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-0">
+          {featured.map((cs, i) => (
+            <Row
+              key={cs.slug}
+              study={cs}
+              index={i}
+              total={featured.length}
+              locale={locale}
+              prefix={prefix}
+              t={t}
+            />
+          ))}
+        </ol>
       </div>
+      <div className="rule" />
     </section>
   );
 }
 
-interface ProjectRowProps {
-  index: string;
+interface RowProps {
   study: CaseStudy;
-  layout: "image-left" | "image-right";
+  index: number;
+  total: number;
   locale: Locale;
   prefix: string;
   t: ReturnType<typeof getDict>;
 }
 
-function ProjectRow({ index, study, layout, prefix, t }: ProjectRowProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-15% 0px" });
+function Row({ study, index, total, prefix, t }: RowProps) {
+  const ref = useRef<HTMLLIElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+  const decisionCount = decisionsBySlug[study.slug]?.length ?? 0;
+  const indexLabel = String(index + 1).padStart(2, "0");
 
-  const imageCol = (
-    <Link href={`${prefix}/work/${study.slug}`} className="block group">
-      <motion.div
-        className="w-full aspect-4/3 relative overflow-hidden"
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
+  // Pull the strongest metric to show as headline figure
+  const headline = study.outcome.metrics[0];
+
+  return (
+    <motion.li
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.06,
+        ease: [0.2, 0.65, 0.3, 1] as [number, number, number, number],
+      }}
+      className="md:col-span-12 border-t border-rule"
+    >
+      <Link
+        href={`${prefix}/work/${study.slug}`}
+        className="group grid grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-2 py-8 md:py-10"
       >
-        <div
-          className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
-          style={{ backgroundColor: study.heroColor }}
-        />
-        {study.heroImage && (
-          <Image
-            src={study.heroImage}
-            alt={study.title}
-            fill
-            style={{ objectFit: "cover", objectPosition: "center top", opacity: 0.5 }}
-            className="transition-transform duration-700 group-hover:scale-105"
-          />
-        )}
-        <div className="absolute inset-0 bg-[#0A0A0A]/0 group-hover:bg-[#0A0A0A]/30 transition-all duration-500 flex items-center justify-center">
-          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs tracking-[0.2em] uppercase text-[#F5F0E8] font-sans">
-            {t.home.viewCaseStudy}
-          </span>
+        <div className="md:col-span-1 t-mono text-ink-2 self-start">
+          {indexLabel} / {String(total).padStart(2, "0")}
         </div>
-      </motion.div>
-    </Link>
-  );
 
-  const textCol = (
-    <div className="flex flex-col justify-between py-4">
-      <div>
-        <p className="font-serif text-[#444444] text-6xl leading-none mb-6">
-          {index}
-        </p>
-        <h3
-          className="font-serif text-[#F5F0E8] leading-tight mb-4"
-          style={{ fontSize: "clamp(2rem, 3.5vw, 3.5rem)" }}
-        >
-          {study.title}
-        </h3>
-        <p className="text-[#888888] text-sm font-sans mb-2">
-          {study.client}
-        </p>
-        <p className="text-[#F5F0E8]/60 font-sans leading-relaxed mb-8 max-w-sm" style={{ fontSize: "0.9rem" }}>
-          {study.summary}
-        </p>
-      </div>
+        <div className="md:col-span-5">
+          <h3 className="t-h3 group-hover:text-accent transition-colors">
+            {study.title}
+          </h3>
+          <p className="t-meta mt-2">
+            {study.client} · {study.year} · {study.duration}
+          </p>
+        </div>
 
-      <div className="flex items-center gap-4">
-        {study.roles.slice(0, 2).map((role) => (
-          <span
-            key={role}
-            className="text-xs tracking-wide text-[#888888] border border-[#333333] px-3 py-1 font-sans"
-          >
-            {role}
-          </span>
-        ))}
-        <Link
-          href={`${prefix}/work/${study.slug}`}
-          className="ml-auto text-sm text-[#C8A96E] hover:text-[#F5F0E8] transition-colors font-sans group"
-        >
-          {t.home.read}
-        </Link>
-      </div>
-    </div>
-  );
+        <div className="md:col-span-3 self-start">
+          <p className="t-meta text-ink-2 max-w-prose">
+            {study.summary.length > 180
+              ? study.summary.slice(0, 178) + "…"
+              : study.summary}
+          </p>
+        </div>
 
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] as [number, number, number, number] }}
-      className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24 pb-24 border-b border-[#1A1A1A]"
-    >
-      {layout === "image-left" ? (
-        <>
-          <div>{imageCol}</div>
-          <div>{textCol}</div>
-        </>
-      ) : (
-        <>
-          <div className="md:order-2">{imageCol}</div>
-          <div className="md:order-1">{textCol}</div>
-        </>
-      )}
-    </motion.div>
-  );
-}
-
-interface ProjectFullWidthProps {
-  index: string;
-  study: CaseStudy;
-  locale: Locale;
-  prefix: string;
-  t: ReturnType<typeof getDict>;
-}
-
-function ProjectFullWidth({ index, study, prefix, t }: ProjectFullWidthProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-15% 0px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] as [number, number, number, number] }}
-    >
-      <Link href={`${prefix}/work/${study.slug}`} className="block group">
-        <div className="relative w-full overflow-hidden" style={{ minHeight: 320 }}>
-          <div
-            className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.01]"
-            style={{ backgroundColor: study.heroColor }}
-          />
-          {study.heroImage && (
-            <Image
-              src={study.heroImage}
-              alt={study.title}
-              fill
-              style={{ objectFit: "cover", objectPosition: "center top", opacity: 0.35 }}
-              className="transition-transform duration-700 group-hover:scale-[1.01]"
-            />
-          )}
-          <div className="absolute inset-0 bg-[#0A0A0A]/50" />
-
-          <div className="relative z-10 p-12 md:p-16 flex flex-col justify-between min-h-80">
-            <p className="font-serif text-[#F5F0E8]/30 text-6xl leading-none">
-              {index}
-            </p>
-
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div>
-                <h3
-                  className="font-serif text-[#F5F0E8] leading-tight mb-3"
-                  style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
-                >
-                  {study.title}
-                </h3>
-                <p className="text-[#F5F0E8]/60 font-sans max-w-2xl leading-relaxed" style={{ fontSize: "0.95rem" }}>
-                  {study.summary}
-                </p>
-              </div>
-
-              <div className="shrink-0">
-                <span className="inline-flex items-center gap-2 text-sm text-[#C8A96E] group-hover:text-[#F5F0E8] transition-colors font-sans">
-                  {t.work.readCaseStudy}
-                  <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
-                </span>
-              </div>
-            </div>
+        <div className="md:col-span-3 self-start flex md:justify-end items-baseline gap-3 text-right">
+          <div>
+            {decisionCount > 0 && (
+              <p className="t-mono text-ink-2 mb-1">
+                {decisionCount} {decisionCount === 1 ? "decision" : "decisions"}
+              </p>
+            )}
+            {headline && (
+              <p className="t-num t-h4 text-accent">
+                {headline.value}
+              </p>
+            )}
+            {headline && (
+              <p className="t-meta text-ink-2">{headline.label}</p>
+            )}
           </div>
         </div>
       </Link>
-    </motion.div>
+    </motion.li>
   );
 }

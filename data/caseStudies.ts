@@ -9,7 +9,7 @@ export const caseStudies: CaseStudy[] = [
     duration: "6 months",
     roles: ["Research Lead", "Design Sprint Facilitator", "UX Designer"],
     team: "UX Designer, UI Designer, Country Manager, CTO, Head of Frontend",
-    tools: ["Figma", "Miro", "VueJS", "Google Analytics", "Hotjar"],
+    tools: ["Figma", "Miro", "VueJS (SSR)", "R", "GraphQL", "RPC", "Google Analytics", "Hotjar"],
     methods: [
       "Stakeholder Interviews",
       "Competitor Analysis",
@@ -25,7 +25,7 @@ export const caseStudies: CaseStudy[] = [
       "Redesigned web app",
       "Omnisearch feature",
       "New navigation system",
-      "Performance-optimised frontend (Angular to VueJS)",
+      "Performance-optimised frontend (PHP → VueJS SSR; backend in R; data layer over GraphQL + RPC)",
       "Design Sprint documentation and validation report",
     ],
     category: "design",
@@ -54,7 +54,7 @@ NPS data was analysed using word-cloud synthesis to identify the most emotionall
 Competitor analysis focused on Odibets (4M users) as the benchmark for a data-light alternative. Heatmap analysis and page speed profiling established quantitative baselines: page weight, time-to-interactive, and session data consumption per key flow. These numbers became the performance contract for the redesign.`,
       findings: [
         "87% of customers bet on soccer only — other sports were consuming load time and data for near-zero engagement",
-        "The app bundle was 6.8MB (Angular 4) — catastrophic on slow 3G/2G connections, causing high bounce before content load",
+        "Total page weight on first load was 6.8 MB on the legacy PHP frontend — catastrophic on slow 3G/2G connections, causing high bounce before content load",
         "Navigation buried key verticals; users arrived for football and couldn't find their way anywhere else",
         "Thousands of match events loaded on the home page on every visit, most never viewed or interacted with",
         "Users were acutely data-cost sensitive but still expected a complete, trustworthy betting experience",
@@ -66,7 +66,7 @@ Competitor analysis focused on Odibets (4M users) as the benchmark for a data-li
 
 Key design decisions from the Sprint: replace the full multi-sport listing with a single-sport default view (soccer — the sport 87% of users are actually there for); implement Omnisearch across all sports verticals so users can reach any event in two interactions instead of five; introduce infinite scroll to eliminate full-page reloads; and revamp navigation to surface previously buried verticals.
 
-On the engineering side, the codebase moved from Angular 4 to VueJS — collapsing the app bundle from 6.8MB to 1.76MB. Server-side Gzip and Brotli compression added further reduction. This was a joint design-engineering decision: the performance gain was only achievable because the design was rebuilt from components, not retrofitted onto the existing codebase.`,
+On the engineering side, the legacy PHP frontend was rebuilt as VueJS with server-side rendering, paired with a new backend in R and a GraphQL + RPC data layer engineered for the cheapest, fastest possible payload. Total page weight on first load collapsed from 6.8 MB to 1.76 MB. Server-side Gzip and Brotli compression added further reduction. This was a joint design-engineering decision: the performance gain was only achievable because the design was rebuilt from components, not retrofitted onto the existing codebase.`,
     },
     testing: {
       approach:
@@ -85,7 +85,7 @@ On the engineering side, the codebase moved from Angular 4 to VueJS — collapsi
         { value: "-69%", label: "Data consumed per session" },
         { value: "-46%", label: "App crash rate" },
         { value: "+22%", label: "Signup-to-first-bet activation" },
-        { value: "6.8 to 1.76MB", label: "App bundle size" },
+        { value: "6.8 → 1.76 MB", label: "Page weight on first load" },
         { value: "-28%", label: "Checkout drop-off at step 3" },
         { value: "+16%", label: "Repeat bet rate" },
       ],

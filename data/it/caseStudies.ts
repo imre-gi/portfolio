@@ -9,7 +9,7 @@ export const caseStudies: CaseStudy[] = [
     duration: "6 mesi",
     roles: ["Research Lead", "Design Sprint Facilitator", "UX Designer"],
     team: "UX Designer, UI Designer, Country Manager, CTO, Head of Frontend",
-    tools: ["Figma", "Miro", "VueJS", "Google Analytics", "Hotjar"],
+    tools: ["Figma", "Miro", "VueJS (SSR)", "R", "GraphQL", "RPC", "Google Analytics", "Hotjar"],
     methods: [
       "Interviste agli Stakeholder",
       "Analisi della Concorrenza",
@@ -25,7 +25,7 @@ export const caseStudies: CaseStudy[] = [
       "Web app ridisegnata",
       "Funzionalità Omnisearch",
       "Nuovo sistema di navigazione",
-      "Frontend ottimizzato per le performance (da Angular a VueJS)",
+      "Frontend ottimizzato per le performance (da PHP a VueJS SSR; backend in R; data layer su GraphQL + RPC)",
       "Documentazione e report di validazione del Design Sprint",
     ],
     category: "design",
@@ -54,7 +54,7 @@ I dati NPS sono stati analizzati tramite sintesi word-cloud per identificare i p
 L'analisi della concorrenza si è concentrata su Odibets (4M utenti) come benchmark per un'alternativa leggera in termini di dati. L'analisi delle heatmap e la profilazione della velocità di pagina hanno stabilito baseline quantitative: peso della pagina, time-to-interactive e consumo di dati per sessione per ogni flusso chiave. Questi numeri sono diventati il contratto di performance per il ridisegno.`,
       findings: [
         "L'87% dei clienti scommette solo sul calcio — gli altri sport consumavano tempo di caricamento e dati per un engagement quasi nullo",
-        "Il bundle dell'app era di 6,8MB (Angular 4) — catastrofico su connessioni lente 3G/2G, causando un alto tasso di abbandono prima del caricamento dei contenuti",
+        "Il peso totale della pagina al primo caricamento era di 6,8 MB sul frontend PHP legacy — catastrofico su connessioni lente 3G/2G, causando un alto tasso di abbandono prima del caricamento dei contenuti",
         "La navigazione nascondeva i verticals chiave; gli utenti arrivavano per il calcio e non riuscivano a trovare altro",
         "Migliaia di eventi sportivi venivano caricati sulla home page ad ogni visita, la maggior parte mai visualizzati o interagiti",
         "Gli utenti erano molto sensibili ai costi dei dati ma si aspettavano comunque un'esperienza di scommesse completa e affidabile",
@@ -66,7 +66,7 @@ L'analisi della concorrenza si è concentrata su Odibets (4M utenti) come benchm
 
 Decisioni chiave di design emerse dallo Sprint: sostituire il listing multi-sport completo con una vista predefinita a sport singolo (calcio — lo sport per cui l'87% degli utenti è effettivamente lì); implementare Omnisearch su tutti i verticals sportivi così che gli utenti possano raggiungere qualsiasi evento in due interazioni invece di cinque; introdurre lo scroll infinito per eliminare i ricaricamenti di pagina completi; e rinnovare la navigazione per portare in superficie i verticals precedentemente nascosti.
 
-Sul fronte ingegneristico, il codebase è passato da Angular 4 a VueJS — riducendo il bundle dell'app da 6,8MB a 1,76MB. La compressione server-side Gzip e Brotli ha aggiunto ulteriori riduzioni. È stata una decisione congiunta design-engineering: il guadagno di performance era raggiungibile solo perché il design è stato ricostruito dai componenti, non retrofittato sul codebase esistente.`,
+Sul fronte ingegneristico, il frontend PHP legacy è stato ricostruito in VueJS con server-side rendering, accoppiato a un nuovo backend in R e a un data layer su GraphQL + RPC progettato per il payload più economico e veloce possibile. Il peso totale della pagina al primo caricamento è crollato da 6,8 MB a 1,76 MB. La compressione server-side Gzip e Brotli ha aggiunto ulteriori riduzioni. È stata una decisione congiunta design-engineering: il guadagno di performance era raggiungibile solo perché il design è stato ricostruito dai componenti, non retrofittato sul codebase esistente.`,
     },
     testing: {
       approach:
@@ -85,7 +85,7 @@ Sul fronte ingegneristico, il codebase è passato da Angular 4 a VueJS — riduc
         { value: "-69%", label: "Dati consumati per sessione" },
         { value: "-46%", label: "Tasso di crash dell'app" },
         { value: "+22%", label: "Attivazione dalla registrazione alla prima scommessa" },
-        { value: "da 6,8 a 1,76MB", label: "Dimensione del bundle" },
+        { value: "6,8 → 1,76 MB", label: "Peso pagina al primo caricamento" },
         { value: "-28%", label: "Abbandono al checkout al passaggio 3" },
         { value: "+16%", label: "Tasso di scommesse ripetute" },
       ],

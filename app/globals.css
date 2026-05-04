@@ -1,45 +1,370 @@
 @import "tailwindcss";
 
+/* =========================================================================
+   Tokens — Decision Tree / Systems Notebook
+   Drafting paper, technical schematic, single architect-red accent.
+   ========================================================================= */
+
 :root {
-  --background: #0A0A0A;
-  --foreground: #F5F0E8;
-  --accent: #C8A96E;
-  --muted: #888888;
-  --border: #222222;
+  /* Paper — cool drafting paper, NOT warm editorial cream */
+  --paper:       oklch(0.975 0.005 250);
+  --paper-2:     oklch(0.955 0.006 250);
+  --paper-3:     oklch(0.925 0.007 250);
+
+  /* Ink — pencil grey, slightly cool */
+  --ink:         oklch(0.18 0.012 250);
+  --ink-2:       oklch(0.42 0.010 250);
+  --ink-3:       oklch(0.62 0.008 250);
+
+  /* Drafting grid lines */
+  --grid:        oklch(0.91 0.005 250);
+  --grid-soft:   oklch(0.94 0.004 250);
+  --rule:        oklch(0.85 0.005 250);
+  --rule-soft:   oklch(0.91 0.005 250);
+
+  /* Architect's red ink — the chosen-path mark */
+  --accent:      oklch(0.55 0.20 30);
+  --accent-tint: oklch(0.55 0.20 30 / 0.10);
+
+  /* Path-not-taken muted */
+  --muted-path:  oklch(0.70 0.008 250);
+
+  /* Optional cool blue for technical references */
+  --tech:        oklch(0.45 0.13 245);
+
+  /* Type scale — drafting / technical */
+  --text-mono:       0.74rem;     /* 11.8px — labels, footnotes, axis ticks */
+  --text-meta:       0.82rem;     /* 13.1px — captions */
+  --text-body:       1.0625rem;   /* 17px — body */
+  --text-lead:       1.22rem;     /* 19.5px — lead */
+  --text-h4:         1.4rem;
+  --text-h3:         1.85rem;
+  --text-h2:         2.6rem;
+  --text-h1:         3.6rem;
+  --text-display:    clamp(2.6rem, 5.5vw, 4.6rem);
+  --text-cover:      clamp(2.2rem, 4.5vw, 3.6rem);
+  --text-decision:   clamp(1.05rem, 1.6vw, 1.35rem);
+
+  /* Spacing rhythm */
+  --baseline:        1.6rem;
+  --container:       72rem;
+  --container-wide:  84rem;
+  --container-prose: 38rem;
+
+  /* Motion */
+  --ease-precise:    cubic-bezier(0.2, 0.65, 0.3, 1);
+  --ease-mech:       cubic-bezier(0.7, 0, 0.3, 1);
+  --dur-fast:        160ms;
+  --dur-base:        260ms;
+  --dur-slow:        480ms;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-muted: var(--muted);
-  --color-border: var(--border);
-  --font-serif: var(--font-serif);
-  --font-sans: var(--font-sans);
+  --color-paper:       var(--paper);
+  --color-paper-2:     var(--paper-2);
+  --color-paper-3:     var(--paper-3);
+  --color-ink:         var(--ink);
+  --color-ink-2:       var(--ink-2);
+  --color-ink-3:       var(--ink-3);
+  --color-grid:        var(--grid);
+  --color-grid-soft:   var(--grid-soft);
+  --color-rule:        var(--rule);
+  --color-rule-soft:   var(--rule-soft);
+  --color-accent:      var(--accent);
+  --color-accent-tint: var(--accent-tint);
+  --color-muted-path:  var(--muted-path);
+  --color-tech:        var(--tech);
+
+  --font-text:         var(--font-text);
+  --font-mono:         var(--font-mono);
 }
+
+/* =========================================================================
+   Base
+   ========================================================================= */
 
 html {
   scroll-behavior: smooth;
+  background: var(--paper);
+
+  /* Quad paper grid — barely there, sets the technical mood */
+  background-image:
+    linear-gradient(to right, var(--grid-soft) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-soft) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
-  cursor: none;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-text), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.55;
+  font-feature-settings: "ss01", "tnum", "kern";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (pointer: coarse) {
-  body {
-    cursor: auto;
-  }
-}
-
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 ::selection {
   background: var(--accent);
-  color: var(--background);
+  color: var(--paper);
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* =========================================================================
+   Typography utilities
+   ========================================================================= */
+
+.font-text { font-family: var(--font-text), ui-sans-serif, system-ui, sans-serif; }
+.font-mono { font-family: var(--font-mono), ui-monospace, monospace; }
+
+.t-display {
+  font-family: var(--font-text), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: var(--text-display);
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+}
+
+.t-cover {
+  font-family: var(--font-text), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: var(--text-cover);
+  line-height: 1.05;
+  letter-spacing: -0.020em;
+}
+
+.t-h1 { font-family: var(--font-text); font-weight: 500; font-size: var(--text-h1); line-height: 1.06; letter-spacing: -0.018em; }
+.t-h2 { font-family: var(--font-text); font-weight: 500; font-size: var(--text-h2); line-height: 1.10; letter-spacing: -0.014em; }
+.t-h3 { font-family: var(--font-text); font-weight: 500; font-size: var(--text-h3); line-height: 1.18; letter-spacing: -0.010em; }
+.t-h4 { font-family: var(--font-text); font-weight: 500; font-size: var(--text-h4); line-height: 1.25; letter-spacing: -0.006em; }
+
+.t-lead {
+  font-size: var(--text-lead);
+  line-height: 1.45;
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.t-body {
+  font-size: var(--text-body);
+  line-height: 1.62;
+  color: var(--ink);
+}
+
+.t-meta {
+  font-size: var(--text-meta);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.t-mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--text-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  font-feature-settings: "tnum";
+}
+
+.t-mono-plain {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--text-mono);
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+  font-feature-settings: "tnum";
+}
+
+.t-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+.t-decision {
+  font-family: var(--font-text);
+  font-weight: 500;
+  font-size: var(--text-decision);
+  line-height: 1.35;
+  letter-spacing: -0.008em;
+  color: var(--ink);
+}
+
+.t-figure-caption {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--text-mono);
+  line-height: 1.5;
+  color: var(--ink-2);
+  letter-spacing: 0.02em;
+}
+
+/* Inline link with engineering-pen underline */
+.inline-link {
+  color: var(--ink);
+  border-bottom: 1px solid currentColor;
+  transition: color var(--dur-fast) ease, border-color var(--dur-fast) ease;
+}
+.inline-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Arrow link */
+.arrow-link {
+  display: inline-flex; align-items: center; gap: 0.5em;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--text-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: color var(--dur-fast) ease;
+}
+.arrow-link::after {
+  content: "→";
+  transition: transform var(--dur-fast) var(--ease-precise);
+}
+.arrow-link:hover { color: var(--accent); }
+.arrow-link:hover::after { transform: translateX(4px); }
+
+/* Rules */
+.rule { height: 1px; background: var(--rule); }
+.rule-soft { height: 1px; background: var(--rule-soft); }
+
+/* Containers */
+.container-page { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: 1.5rem; }
+.container-wide { width: 100%; max-width: var(--container-wide); margin-inline: auto; padding-inline: 1.5rem; }
+.container-prose { width: 100%; max-width: var(--container-prose); margin-inline: auto; padding-inline: 1.5rem; }
+@media (min-width: 768px) {
+  .container-page, .container-wide, .container-prose { padding-inline: 2.5rem; }
+}
+
+/* =========================================================================
+   Decision Tree primitives — visual schematic
+   ========================================================================= */
+
+.dt-node {
+  position: relative;
+  display: block;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  padding: 1rem 1.25rem;
+  transition: border-color var(--dur-fast) ease,
+              background var(--dur-fast) ease,
+              transform var(--dur-fast) var(--ease-precise);
+}
+.dt-node[data-chosen="true"] {
+  border-color: var(--accent);
+  background: var(--paper);
+}
+.dt-node[data-chosen="true"]::before {
+  content: "";
+  position: absolute;
+  left: -1px; top: -1px; bottom: -1px;
+  width: 3px;
+  background: var(--accent);
+}
+.dt-node[data-chosen="false"] {
+  border-style: dashed;
+  border-color: var(--muted-path);
+  color: var(--ink-2);
+}
+
+/* Connector line — the engineering pen stroke */
+.dt-connector {
+  position: relative;
+  width: 1px;
+  background: var(--rule);
+  margin-inline: auto;
+}
+.dt-connector[data-chosen="true"] { background: var(--accent); }
+.dt-connector[data-chosen="false"] {
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--muted-path) 0,
+    var(--muted-path) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+/* Decision number gutter */
+.dt-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--text-mono);
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Path label */
+.dt-path-label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.dt-path-label[data-chosen="true"] { color: var(--accent); }
+
+/* Outcome badge */
+.dt-badge {
+  display: inline-flex; align-items: baseline; gap: 0.4em;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.03em;
+  border: 1px solid var(--rule);
+  padding: 0.2rem 0.55rem;
+  background: var(--paper-2);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.dt-badge[data-chosen="true"] {
+  border-color: var(--accent);
+  background: var(--accent-tint);
+  color: var(--accent);
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* Engineering corner-tick decoration */
+.tick-corner::before,
+.tick-corner::after {
+  content: "";
+  position: absolute;
+  width: 8px; height: 8px;
+  border: 1px solid var(--ink);
+  border-right: 0; border-bottom: 0;
+  pointer-events: none;
+}
+.tick-corner::before { top: -1px; left: -1px; }
+.tick-corner::after  { top: -1px; right: -1px; transform: scaleX(-1); }
+
+/* Engineer's tag (for case study chips) */
+.eng-tag {
+  display: inline-flex; align-items: center; gap: 0.35em;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  border: 1px solid var(--rule);
+  padding: 0.2rem 0.5rem;
+}
+
+@media print {
+  body { background: white; color: black; }
 }

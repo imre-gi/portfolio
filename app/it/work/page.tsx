@@ -1,79 +1,93 @@
-"use client";
-
-import { useState } from "react";
+import Link from "next/link";
+import type { Metadata } from "next";
 import { caseStudies } from "@/data/it/caseStudies";
-import CaseStudyCard from "@/components/work/CaseStudyCard";
-import { AnimatePresence, motion } from "framer-motion";
+import { decisionsBySlug } from "@/data/decisions";
+import ChapterHeader from "@/components/shared/ChapterHeader";
 
-const categories = ["tutti", "design", "research", "strategy", "founding"] as const;
-type Category = (typeof categories)[number];
-
-const categoryMap: Record<Category, string | null> = {
-  tutti: null,
-  design: "design",
-  research: "research",
-  strategy: "strategy",
-  founding: "founding",
+export const metadata: Metadata = {
+  title: "Lavori — quindici anni di decisioni",
+  description:
+    "Indice degli incarichi: ricerca, design, strategia, fondazione. Ogni voce è un albero di decisioni.",
 };
 
-export default function WorkPageIT() {
-  const [active, setActive] = useState<Category>("tutti");
-
-  const filtered =
-    active === "tutti"
-      ? caseStudies
-      : caseStudies.filter((cs) => cs.category === categoryMap[active]);
+export default function WorkIndexIT() {
+  const sorted = [...caseStudies].sort((a, b) => b.year - a.year);
 
   return (
-    <div className="pt-32 pb-24 px-6 md:px-12">
-      <div className="max-w-[1400px] mx-auto">
-
-        {/* Header */}
-        <div className="mb-20">
-          <p className="text-xs tracking-[0.2em] uppercase text-[#888888] font-[family-name:var(--font-sans)] mb-6">
-            Portfolio
-          </p>
-          <h1
-            className="font-[family-name:var(--font-serif)] text-[#F5F0E8] leading-none"
-            style={{ fontSize: "clamp(4rem, 10vw, 10rem)" }}
-          >
-            Lavoro
-          </h1>
-        </div>
-
-        {/* Filter */}
-        <div className="flex flex-wrap gap-2 mb-16 border-b border-[#222222] pb-8">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActive(cat)}
-              className={`px-4 py-1.5 text-xs tracking-[0.15em] uppercase font-[family-name:var(--font-sans)] border transition-colors duration-200 ${
-                active === cat
-                  ? "border-[#C8A96E] text-[#C8A96E]"
-                  : "border-[#333333] text-[#888888] hover:border-[#555555] hover:text-[#F5F0E8]"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* List */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {filtered.map((study, i) => (
-              <CaseStudyCard key={study.slug} study={study} index={i} prefix="/it" />
-            ))}
-          </motion.div>
-        </AnimatePresence>
-
+    <article className="pb-24">
+      <div className="container-wide pt-12 md:pt-16">
+        <ChapterHeader
+          number="INDICE · LAVORI"
+          title="Quindici anni di decisioni."
+          lead="Indice cronologico degli incarichi. Ogni voce è un albero di decisioni — dalle quattro alle sei diramazioni per progetto, con la strada presa e l'alternativa fianco a fianco."
+          as="h1"
+        />
       </div>
-    </div>
+
+      <div className="container-wide">
+        <ol className="border-t border-ink">
+          {sorted.map((cs, i) => {
+            const count = decisionsBySlug[cs.slug]?.length ?? 0;
+            const headlineMetric = cs.outcome.metrics[0];
+            const indexLabel = String(i + 1).padStart(2, "0");
+
+            return (
+              <li key={cs.slug} className="border-b border-rule">
+                <Link
+                  href={`/it/work/${cs.slug}`}
+                  className="group grid grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-3 py-7 md:py-8"
+                >
+                  <span className="md:col-span-1 t-mono">{indexLabel}</span>
+                  <span className="md:col-span-1 t-mono text-ink-2 t-num">
+                    {cs.year}
+                  </span>
+
+                  <div className="md:col-span-4">
+                    <h3 className="t-h3 group-hover:text-accent transition-colors">
+                      {cs.title}
+                    </h3>
+                    <p className="t-meta mt-1">
+                      {cs.client} · {cs.duration}
+                    </p>
+                  </div>
+
+                  <div className="md:col-span-3">
+                    <p className="t-meta text-ink-2 max-w-prose">
+                      {cs.summary.length > 160
+                        ? cs.summary.slice(0, 158) + "…"
+                        : cs.summary}
+                    </p>
+                  </div>
+
+                  <div className="md:col-span-3 md:text-right flex md:justify-end items-baseline gap-3">
+                    <div>
+                      {count > 0 ? (
+                        <p className="t-mono text-ink-2">
+                          {count} decisioni in archivio
+                        </p>
+                      ) : (
+                        <p className="t-mono text-ink-3">
+                          decisioni da archiviare
+                        </p>
+                      )}
+                      {headlineMetric && (
+                        <p className="t-num t-h4 text-accent mt-1">
+                          {headlineMetric.value}
+                        </p>
+                      )}
+                      {headlineMetric && (
+                        <p className="t-meta text-ink-2">
+                          {headlineMetric.label}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </article>
   );
 }

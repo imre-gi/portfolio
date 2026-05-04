@@ -1,26 +1,28 @@
 import Hero from "@/components/home/Hero";
+import FeaturedDecision from "@/components/home/FeaturedDecision";
 import SelectedWork from "@/components/home/SelectedWork";
-import Services from "@/components/home/Services";
+import Practice from "@/components/home/Practice";
 import AboutTeaser from "@/components/home/AboutTeaser";
+import Services from "@/components/home/Services";
 import ContactCTA from "@/components/home/ContactCTA";
-import { profile } from "@/data/it/profile";
 import { caseStudies } from "@/data/it/caseStudies";
-import { services } from "@/data/it/services";
 
 export const metadata = {
-  title: "Imre Guaglianone — Experience Designer · Ricercatore · Founder · Mentor · Speaker",
+  title: "Imre Guaglianone — Experience Designer · Ricercatore · Founder",
   description:
-    "Design lead con oltre 15 anni di esperienza all'incrocio tra design comportamentale, pensiero sistemico ed esecuzione di prodotto.",
+    "Quindici anni di decisioni difficili in product design, ricerca UX, strategia. Bologna.",
 };
 
 export default function HomeIT() {
   return (
     <>
-      <Hero locale="it" profile={profile} />
+      <Hero locale="it" />
+      <FeaturedDecision locale="it" slug="betika" decisionIndex={0} />
       <SelectedWork locale="it" studies={caseStudies} />
-      <Services locale="it" services={services} />
+      <Practice locale="it" />
       <AboutTeaser locale="it" />
-      <ContactCTA />
+      <Services locale="it" />
+      <ContactCTA locale="it" />
     </>
   );
 }
