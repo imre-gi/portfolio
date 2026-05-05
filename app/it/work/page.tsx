@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { caseStudies } from "@/data/it/caseStudies";
-import { decisionsBySlug } from "@/data/decisions";
+import { decisionsBySlug } from "@/data/it/decisions";
 import ChapterHeader from "@/components/shared/ChapterHeader";
 
 export const metadata: Metadata = {

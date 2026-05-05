@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { decisionsBySlug } from "@/data/decisions";
+import { decisionsBySlug as enDecisions } from "@/data/decisions";
+import { decisionsBySlug as itDecisions } from "@/data/it/decisions";
 import DecisionTree from "@/components/shared/DecisionTree";
 import ChapterHeader from "@/components/shared/ChapterHeader";
 import { getDict, type Locale } from "@/lib/i18n";
@@ -24,7 +25,8 @@ export default function FeaturedDecision({
   const t = getDict(locale);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
-  const all = decisionsBySlug[slug] ?? [];
+  const source = locale === "it" ? itDecisions : enDecisions;
+  const all = source[slug] ?? [];
   const decision = all[decisionIndex];
   const prefix = locale === "it" ? "/it" : "";
 
@@ -42,7 +44,7 @@ export default function FeaturedDecision({
           }
           lead={
             locale === "it"
-              ? `Da Betika (2019). Cinque mercati africani, costo medio dei dati: 15,82 $/GB. La piattaforma stava emorragiando utenti perché era cara da usare. Ecco una delle sei decisioni che hanno definito quel progetto.`
+              ? `Da Betika (2019). Cinque mercati africani, costo medio dei dati: 15,82 $/GB. La piattaforma stava perdendo utenti perché era cara da usare. Ecco una delle sei decisioni che hanno definito quel progetto.`
               : `From Betika (2019). Five African markets, mean data cost: $15.82/GB. The platform was bleeding users because it was expensive to use. Here is one of the six decisions that defined that engagement.`
           }
         />
@@ -56,10 +58,7 @@ export default function FeaturedDecision({
             ease: [0.2, 0.65, 0.3, 1] as [number, number, number, number],
           }}
         >
-          <DecisionTree
-            decisions={[decision]}
-            ofLabel={locale === "it" ? "di" : "of"}
-          />
+          <DecisionTree decisions={[decision]} locale={locale} />
         </motion.div>
 
         <div className="mt-12 flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-8 border-t border-rule">

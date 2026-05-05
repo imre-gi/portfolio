@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { caseStudies } from "@/data/it/caseStudies";
-import { decisionsBySlug } from "@/data/decisions";
+import { decisionsBySlug } from "@/data/it/decisions";
 import DecisionTree from "@/components/shared/DecisionTree";
 import ChapterHeader from "@/components/shared/ChapterHeader";
 import PullQuote from "@/components/shared/PullQuote";
@@ -84,7 +84,7 @@ export default async function CaseStudyIT({ params }: Props) {
             title="Le decisioni che hanno definito l'incarico."
             lead="Ogni nodo mostra l'alternativa considerata e la strada presa, con l'evidenza che ha deciso il bivio."
           />
-          <DecisionTree decisions={decisions} ofLabel="di" />
+          <DecisionTree decisions={decisions} locale="it" />
         </section>
       ) : (
         <section className="container-wide py-16 md:py-20">

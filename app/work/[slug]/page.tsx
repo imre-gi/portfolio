@@ -104,7 +104,7 @@ export default async function CaseStudy({ params }: Props) {
             title="The decisions that shaped this engagement."
             lead="Each junction shows the alternative considered and the path taken — with the evidence that decided the call."
           />
-          <DecisionTree decisions={decisions} />
+          <DecisionTree decisions={decisions} locale="en" />
         </section>
       ) : (
         <section className="container-wide py-16 md:py-20">

@@ -52,13 +52,13 @@ export default function Hero({ locale = "en" }: HeroProps) {
         >
           {locale === "it" ? (
             <>
-              Il design senior si misura sulle{" "}
+              Il senior designer si misura sulle{" "}
               <span className="text-accent">decisioni</span> prese,
               non sui pixel prodotti.
             </>
           ) : (
             <>
-              Senior design is measured by the{" "}
+              Senior designers are measured by the{" "}
               <span className="text-accent">decisions</span> taken,
               not the pixels produced.
             </>

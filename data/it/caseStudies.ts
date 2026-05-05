@@ -220,12 +220,12 @@ Binario 3 — Infrastruttura ResearchOps: Stabilite pipeline di reclutamento dei
     featured: false,
     heroColor: "#1A0A2E",
     summary:
-      "Progettato un sistema di tracking utente in tempo reale e segmentazione comportamentale per uno dei principali provider di piattaforme gaming al mondo — e ridisegnato il funnel di registrazione per ottenere +38% di registrazioni e +51% di First Time Deposit.",
-    challenge: `Genesis Global è una piattaforma gaming B2B che alimenta decine di brand casino white-label in tutta Europa. I loro operatori avevano un problema che era invisibile: stavano prendendo decisioni di personalizzazione e intervento su dati vecchi di un giorno. Quando un utente di alto valore mostrava segnali di churn, la finestra per il re-engagement era già passata.
+      "Progettata la fondazione di tracking comportamentale e utente per Genesis Global — e, attraverso task analysis e funnel analysis, dimezzati i passaggi dal pubblicitario all'attivazione su tutti i 14 brand operatori, dando al team marketing la prima capacità di pianificare campagne su evidenza in tempo reale.",
+    challenge: `Genesis Global è una piattaforma gaming B2B che alimenta 14 brand casino white-label in tutta Europa. Sono entrato perché l'azienda non aveva una fondazione solida di tracking comportamentale e utente: gli operatori prendevano decisioni di personalizzazione, retention e acquisizione su dati vecchi di un giorno, senza una definizione condivisa di chi fosse un 'utente di alto valore' e senza modo per marketing o product di agire su un segnale entro la finestra della sessione.
 
-La piattaforma aveva analytics aggregati, ma nessuna visibilità comportamentale in tempo reale e nessuno strumento di segmentazione accessibile agli operatori. Ogni richiesta di personalizzazione passava attraverso il team ingegneristico come query personalizzata. La sfida di design era duplice: progettare il sistema di tracking stesso — la tassonomia degli eventi, le definizioni dei segmenti, l'architettura dei dati — e poi progettare l'interfaccia attraverso la quale gli operatori potevano costruire e agire sui segmenti senza supporto ingegneristico.
+La piattaforma aveva analytics aggregati, ma nessuna visibilità comportamentale in tempo reale e nessuno strumento di segmentazione accessibile agli operatori. Ogni richiesta di personalizzazione passava attraverso il team ingegneristico come query personalizzata. Il primo lavoro è stato progettare il sistema di tracking stesso — la tassonomia degli eventi, le definizioni dei segmenti, l'architettura dei dati — e poi l'interfaccia attraverso la quale gli operatori potevano costruire e agire sui segmenti senza supporto ingegneristico.
 
-In parallelo, un brief separato richiedeva un audit CRO del funnel di registrazione e primo deposito sui tre principali brand operatori della piattaforma. I due workstream si sono alimentati a vicenda: l'analisi del funnel ha rivelato dove il tracking era cieco, e il design del tracking ha rivelato dove le interventi sul funnel potevano essere applicati in tempo reale.`,
+In parallelo, una task analysis e una funnel analysis sul percorso dalle ad sul web alla registrazione al primo deposito (l'evento di attivazione) hanno rivelato un flusso end-to-end lungo quasi il doppio del necessario. I due workstream si sono alimentati a vicenda: la funnel analysis ha rivelato dove il tracking era cieco, e il design del tracking ha rivelato dove gli interventi sul funnel potevano essere applicati in tempo reale. Il ridisegno doveva poi replicarsi in modo pulito su tutti i 14 brand senza che ogni operatore biforcasse l'implementazione.`,
     research: {
       description: `Ho facilitato una serie di workshop con gli stakeholder di tre giorni con team di operatori, product manager e data engineer. La prima sessione ha mappato il panorama analytics esistente — cosa veniva tracciato, cosa gli operatori usavano effettivamente e dove erano i gap. La seconda si è concentrata sui trigger decisionali su cui gli operatori dovevano agire. La terza era un workshop di tassonomia — co-progettando le convenzioni di denominazione degli eventi, le gerarchie dei segmenti e lo schema degli attributi con i data engineer presenti. Impostare correttamente questo layer prima di qualsiasi lavoro UI era critico: la tassonomia sbagliata avrebbe prodotto una UI che non poteva essere interrogata in modo coerente.
 
@@ -245,16 +245,18 @@ Il ridisegno del funnel CRO ha ridotto il flusso di registrazione da 5 a 3 passa
     },
     outcome: {
       description:
-        "Il sistema di segmentazione in tempo reale ha dato agli operatori la loro prima capacità di agire sui segnali degli utenti entro la finestra della sessione. Il ridisegno del funnel CRO ha prodotto un uplift misurabile sia sul tasso di registrazione che sulla conversione del primo deposito.",
+        "Il sistema di segmentazione in tempo reale ha dato agli operatori la loro prima capacità di agire sui segnali degli utenti entro la finestra della sessione. Il ridisegno del funnel — task analysis e funnel analysis che hanno collassato passaggi duplicati e a basso valore tra ad e attivazione — è stato esteso a tutti i 14 brand e ha dato al team marketing, per la prima volta, un modo per decidere le campagne future su una base di evidenza unificata invece che operatore per operatore.",
       metrics: [
+        { value: "−~50%", label: "Passaggi da ad ad attivazione (su 14 brand)" },
         { value: "+38%", label: "Tasso di registrazione" },
         { value: "+51%", label: "First Time Deposit" },
-        { value: "da 5 a 3", label: "Passaggi del funnel di registrazione" },
+        { value: "5 → 3", label: "Sotto-funnel di registrazione" },
         { value: "Tempo reale", label: "Disponibilità dei segmenti (era 24-48h di lag)" },
+        { value: "14 / 14", label: "Brand sulla tassonomia unificata" },
       ],
     },
     reflection:
-      "Il design dei dati è tanto un atto politico quanto un atto di design. Definire cosa viene tracciato, come viene etichettato e chi può agire su di esso plasma il modo in cui un'organizzazione pensa ai propri utenti per anni. Il workshop sulla tassonomia era importante quanto qualsiasi wireframe — far concordare engineering, product e operatori su cosa significasse 'utente di alto valore' era il vero deliverable della prima fase. Tutto ciò che è venuto dopo era implementazione.",
+      "Il design dei dati è tanto un atto politico quanto un atto di design. Definire cosa viene tracciato, come viene etichettato e chi può agire su di esso plasma il modo in cui un'organizzazione pensa ai propri utenti per anni. Il workshop sulla tassonomia era importante quanto qualsiasi wireframe — far concordare engineering, product e operatori su cosa significasse 'utente di alto valore' era il vero deliverable della prima fase. L'altra lezione: accorciare un flusso non si fa quasi mai tagliando passaggi; si fa trovando i job duplicati nascosti dentro i passaggi e fondendoli. Tutto ciò che è venuto dopo questi due atti era implementazione.",
   },
 
   {
@@ -290,12 +292,12 @@ Il ridisegno del funnel CRO ha ridotto il flusso di registrazione da 5 a 3 passa
     heroColor: "#1A0A0A",
     heroImage: "/images/portfolio/pag-28-1.jpg",
     summary:
-      "Ideato e progettato un gioco sociale di scommesse a pool sul trotto da concept a beta validata — unendo gli amici nell'emozione della corsa con scommesse condivise, pool di gruppo e funzionalità social live.",
+      "Co-progettato con gli analisti di trotto un gioco di pool betting community-first — team che competono contro altri team, esperti di dominio dentro al gioco a cui ogni team può rivolgersi prima di puntare, e gioco responsabile costruito nell'architettura sociale anziché bollato come disclaimer di compliance.",
     challenge: `Il mercato iGaming nel 2018 era affollato di scommettitori identici che competevano su quote e promozioni, non sull'esperienza. Legolas.bet voleva un prodotto genuinamente differenziato — qualcosa che un utente non potesse trovare da un concorrente. Il brief era aperto: creare un nuovo formato di gioco di scommesse che utilizzasse meccanismi social per guidare l'engagement e la retention.
 
-Il trotto (la corsa al trotto con il sulky) era una scelta insolita di sport, ma deliberata. Aveva un pubblico core appassionato e quasi nessuna attenzione digitale dei prodotti — un chiaro spazio bianco. Il pool betting era il formato di gioco: la struttura a premio condiviso crea un'esperienza emotiva fondamentalmente diversa rispetto alle scommesse contro il banco, e i meccanismi social amplificano questa posta condivisa.
+Il trotto era una scelta insolita di sport, ma deliberata. Aveva un pubblico core appassionato e quasi nessuna attenzione digitale dei prodotti — un chiaro spazio bianco. Il pool betting era il formato di gioco: la struttura a premio condiviso crea un'esperienza emotiva fondamentalmente diversa rispetto alle scommesse contro il banco, e i meccanismi social amplificano questa posta condivisa.
 
-La sfida di design era rendere il pool betting sul trotto accessibile ai scommettitori occasionali — persone che non avevano mai guardato una corsa — pur offrendo la profondità che avrebbe mantenuto i fan esperti di trotto.`,
+La sfida di design più profonda era duplice. Primo, rendere il pool betting sul trotto accessibile ai scommettitori occasionali che non avevano mai guardato una corsa, pur mantenendo la profondità per i fan esperti. Secondo — e questa parte non era nel brief iniziale — costruire una community in cui i meccanismi social non si trasformassero in una macchina di pressione tra pari. Lavorando a stretto contatto con gli analisti di trotto, abbiamo strutturato il gioco attorno a team che competono contro altri team, con esperti di dominio in-product a cui ogni team può rivolgersi prima di puntare un pool. Gli esperti erano i guardrail: una community sana di gioco responsabile, con gli analisti senior visibili dentro al gioco come le persone a cui ogni team si rivolge prima di impegnarsi.`,
     research: {
       description: `La ricerca ha combinato interviste JTBD con scommettitori di trotto esistenti e utenti di social gaming non scommettitori (il pubblico target di espansione), un'analisi competitiva di prodotti di social gaming al di fuori del vertical delle scommesse (inclusi Kahoot, Words With Friends e piattaforme di fantasy sports), e un'analisi mirata dei formati di pool betting a livello globale — Pools, Quinela, Supertoto e Super 6.
 
@@ -309,9 +311,11 @@ Il GV Design Sprint è stato il metodo di design principale. Il Giorno 1 ha mapp
       ],
     },
     design: {
-      description: `Progettato un formato di gioco costruito attorno a pool di scommesse condivise, inviti social e visione live della gara. I gruppi di amici creano pool privati, nominano nomi e avatar del team, effettuano le selezioni e poi guardano la gara insieme con un layer di commento social live.
+      description: `Progettato un formato di gioco costruito su tre pilastri: team che competono contro altri team, un layer di esperti in-product a cui ogni team può rivolgersi prima di impegnarsi, e una superficie di visione live della gara che trasforma la scommessa in un evento condiviso.
 
 Il flusso di creazione del team è stato progettato come un onboarding in 6 passaggi: username, nome del team, foto del team, selezione dello sport/gara, scelta delle selezioni, invito degli amici. Ogni passaggio costruisce investimento prima dell'invito — nel momento in cui un utente raggiunge la schermata di invito, si è già impegnato nell'identità del proprio team e vuole che altri si uniscano al suo specifico pool.
+
+Il layer degli esperti era la spina dorsale del gioco responsabile nel design. Gli analisti senior di trotto comparivano dentro al prodotto come esperti nominati e visibili. Un team poteva chiedere consiglio a uno di loro sulla corsa imminente prima di puntare un pool — la conversazione era leggera, asincrona, e affiorava dentro la schermata del pool del team. La presenza di un esperto di dominio nel circuito rallentava le scommesse impulsive e dava ai scommettitori occasionali un modo per imparare il formato senza essere esposti alla pressione tra pari dei compagni di squadra più rumorosi.
 
 La schermata di visione della gara era il pezzo centrale dell'UI: indicatori di posizione in tempo reale per il cavallo selezionato di ciascun team, un feed di commento condiviso e uno stato di celebrazione esplicitamente progettato per lo screenshot e la condivisione.`,
     },
@@ -335,7 +339,7 @@ La schermata di visione della gara era il pezzo centrale dell'UI: indicatori di 
       ],
     },
     reflection:
-      "Progettare giochi è diverso dal progettare strumenti — i giochi richiedono tensione, anticipazione e rilascio. Il layer social in Play Together non era una funzionalità aggiunta a un prodotto di scommesse; era il nucleo emotivo che rendeva il prodotto degno di essere usato. Ogni decisione di design doveva servire il contratto sociale tra i giocatori: la posta condivisa, la visione condivisa, la celebrazione condivisa. Quando ho capito bene quell'architettura nel GV Sprint, i design delle singole schermate si sono quasi scritti da soli.",
+      "Progettare giochi è diverso dal progettare strumenti — i giochi richiedono tensione, anticipazione e rilascio. Il layer social in Play Together non era una funzionalità aggiunta a un prodotto di scommesse; era il nucleo emotivo che rendeva il prodotto degno di essere usato. La decisione che ha plasmato tutto il resto è stata inserire gli esperti nel circuito: quella singola scelta architettonica ha spostato Play Together da amplificatore di pressione tra pari a community con coaching. Il gioco responsabile come superficie di design, non come disclaimer di compliance.",
   },
 
   {
@@ -345,7 +349,7 @@ La schermata di visione della gara era il pezzo centrale dell'UI: indicatori di 
     year: 2017,
     duration: "3 mesi",
     roles: ["Lead UX Designer", "Product Designer"],
-    team: "Team Design, Product, Engineering, Football Analyst",
+    team: "Team Design, Product, Engineering, Trotting Analysts, Football Analyst",
     tools: ["Figma", "Miro", "InVision"],
     methods: [
       "Ideazione del Concept",
@@ -365,48 +369,46 @@ La schermata di visione della gara era il pezzo centrale dell'UI: indicatori di 
     heroColor: "#0A1628",
     heroImage: "/images/portfolio/pag-33-1.jpg",
     summary:
-      "Progettato un gioco di pronostico calcistico a pool su 10 partite — prendendo un formato antico come le football pools vittoriane e ricostruendolo per un pubblico mobile-first che si aspetta semplicità, velocità e social proof.",
-    challenge: `Il vertical di pool betting di Legolas.bet aveva bisogno di un prodotto calcistico. Il calcio era lo sport di scommesse dominante in ogni mercato target — ma il pool betting sul calcio era in gran parte scomparso in forma digitale, soppiantato dai scommettitori sportivi che offrono quote in tempo reale. L'opportunità era nel segmento dei scommettitori occasionali: persone che seguivano il calcio ma trovavano le quote dei scommettitori intimidatorie.
+      "Un pool di pronostici su 10 eventi sport-agnostico — progettato per ponteggiare il pubblico trotting-first di Legolas verso il calcio e nell'altra direzione. Stesso formato, qualunque sport, mobile-nativo: un gioco in stile Vernons Pools ricostruito per una generazione che si aspetta semplicità, velocità e social proof.",
+    challenge: `Legolas è nata come trotting-first company. I fan del trotto erano la fondazione della customer base, ma la strada per la crescita richiedeva di portare dentro fan di altri sport — il calcio sopra a tutti — senza alienare la community del trotto. Ogni tentativo precedente di introdurre un nuovo vertical era stato rischioso: i fan del trotto vedevano i vertical estranei come una diluizione del brand, e i fan del calcio non avevano motivo di approdare su un prodotto a sapore di trotto.
 
-La sfida era progettare un formato di gioco abbastanza semplice da attirare i scommettitori a pool principianti offrendo al contempo abbastanza variabilità settimana per settimana ed eccitazione per i premi da stimolare il gioco ripetuto. I prodotti di riferimento — Vernons Pools, Quinela, Super 6 — avevano tutti decenni di product-market fit ma erano progettati per un pubblico desktop-first e più anziano. Il compito era estrarre l'appeal emotivo core e ricostruirlo per un utente mobile-nativo e fluente nei social media.`,
+Match 10 è stato la risposta a entrambi i problemi con un solo design. Un pool di pronostici su 10 eventi, applicabile a qualunque sport — trotto, calcio, qualunque cosa nel calendario — nello stesso formato a premio fisso. Per i fan del trotto era un pool format familiare applicato a sport nuovi che potevano provare a basso rischio. Per i fan del calcio era un gioco riconoscibile (DNA Vernons Pools, Super 6, Quinela) che li portava su Legolas senza che il trotto fosse la prima cosa da imparare.
+
+La sfida di design era duplice. Primo, costruire un formato semplice abbastanza da attirare i scommettitori a pool alle prime armi — entrambe le community — offrendo al contempo abbastanza variabilità settimanale e brio sui premi da stimolare il gioco ripetuto. Secondo, rendere il formato genuinamente sport-agnostico al livello del design: la stessa UI, lo stesso flusso di inserimento, la stessa struttura di premi dovevano funzionare sia che i 10 eventi fossero corse di cavalli, partite di calcio o un calendario settimanale misto.`,
     research: {
-      description: `L'analisi competitiva ha coperto tre generazioni di prodotti football pool: il modello vittoriano (Vernons, Littlewoods), il formato digitale moderno (Super 6, Sky Sports) e l'adiacenza del fantasy sports (FPL, Draft Kings). Ciascuno offriva lezioni diverse su cosa rende il pool betting calcistico coinvolgente.
+      description: `L'analisi competitiva ha coperto tre generazioni di prodotti pool: il modello calcistico vittoriano (Vernons, Littlewoods), i formati digitali moderni (Super 6, Sky Sports, Quinela) e l'adiacenza del fantasy sports (FPL, Draft Kings). Ciascuno offriva lezioni diverse su cosa rende coinvolgente il pool betting basato sul pronostico. Cruciale: l'analisi è stata condotta con gli analisti di trotto nella stanza accanto all'analista di calcio — l'obiettivo era far emergere gli invarianti del formato che sopravvivevano attraverso gli sport, non gli ami specifici del calcio.
 
-L'insight critico è emerso dallo studio del 'footy tipping' — la tradizione informale australiana dei pub di pronosticare i risultati delle partite su un foglio appeso al muro con i nomi di tutti visibili. L'appeal emotivo non era il premio; era la visibilità sociale. Tutti potevano vedere come stavano tutti gli altri. Questo insight ha direttamente plasmato il design di Match 10.`,
+L'insight critico è emerso dallo studio del 'footy tipping' — la tradizione informale australiana dei pub di pronosticare i risultati delle partite su un foglio appeso al muro con i nomi di tutti visibili. L'appeal emotivo non era il premio; era la visibilità sociale. Tutti potevano vedere come stavano tutti gli altri. Quel meccanismo funzionava ugualmente bene su una serie di corse o una serie di partite — il che lo rendeva la spina dorsale giusta per un prodotto sport-agnostico.`,
       findings: [
-        "La semplicità era il principale driver di acquisizione — i scommettitori a pool che trovavano le quote intimidatorie rispondevano immediatamente ai formati di pronostico a risultato fisso",
+        "La semplicità era il principale driver di acquisizione — i scommettitori a pool che trovavano le quote intimidatorie rispondevano immediatamente ai formati a risultato fisso, indipendentemente dallo sport degli eventi",
         "I pool a premio fisso creavano un'eccitazione condivisa che le quote variabili non potevano replicare",
         "La social proof (quanti altri partecipano, classifica live) influenzava fortemente la partecipazione ripetuta",
         "La ricerca sul footy tipping ha rivelato che la visibilità delle scelte degli altri era più coinvolgente del premio — la trasparenza sociale guidava i ritorni",
-        "La velocità di completamento era critica: se scegliere 10 partite richiedeva più di 90 secondi, i scommettitori occasionali abbandonavano l'inserimento",
+        "La velocità di completamento era critica: se scegliere 10 eventi richiedeva più di 90 secondi, i scommettitori occasionali abbandonavano — il budget era lo stesso che gli eventi fossero corse o partite",
+        "Il formato doveva leggersi come lo stesso prodotto attraverso gli sport — un fan del trotto che prova il calendario calcio del sabato deve riconoscere lo stesso gioco, non impararne uno nuovo",
       ],
     },
     design: {
-      description: `Progettato un formato di pronostico su 10 partite costruito attorno a tre principi: semplicità, velocità e trasparenza sociale.
+      description: `Progettato un formato di pronostico su 10 eventi costruito attorno a quattro principi: semplicità, velocità, trasparenza sociale e sport-agnosticismo. La stessa UI, lo stesso flusso, la stessa struttura premi dovevano funzionare per un calendario di corse di cavalli, di partite di calcio o un calendario settimanale misto.
 
-Il flusso di inserimento è stato progettato per il completamento in 90 secondi: swipe a sinistra/destra per casa/trasferta/pareggio su ciascuna card della partita, rivelazione progressiva del pool del premio man mano che gli inserimenti si accumulano, e una schermata di conferma che funge anche da card da condividere. La card di condivisione è stata progettata prima del flusso di inserimento — il momento di condivisione social era il meccanismo di acquisizione, e il design doveva renderlo il più privo di attrito possibile.
+Il flusso di inserimento è stato progettato per il completamento in 90 secondi: una gesture di swipe per ogni event card (casa/trasferta/pareggio per il calcio; pick del cavallo per il trotto; qualunque sia l'esito primario dello sport), rivelazione progressiva del pool del premio man mano che gli inserimenti si accumulano, e una schermata di conferma che funge anche da card da condividere. La card di condivisione è stata progettata prima del flusso di inserimento — il momento di condivisione social era il meccanismo di acquisizione, e il design doveva renderlo il più privo di attrito possibile.
 
-Il design della struttura del premio è stato collaborativo con l'analista calcistico e il team commerciale: premi a livelli per 10/9/8 pronostici corretti, con la struttura del jackpot spiegata in linguaggio semplice al passaggio di conferma dell'inserimento. Il design ha evitato esplicitamente di mostrare quote o probabilità — la semplicità del formato era il suo elemento differenziante.
+Il design della struttura del premio è stato collaborativo con gli analisti di trotto e calcio e con il team commerciale: premi a livelli per 10/9/8 pronostici corretti, con la struttura del jackpot spiegata in linguaggio semplice al passaggio di conferma. Il design ha evitato esplicitamente di mostrare quote o probabilità — la semplicità era l'elemento differenziante e il polimorfismo (qualunque sport, stesso gioco) funzionava solo se le quote non trapelavano nella superficie.
 
-Una classifica live è stata inclusa come superficie di engagement post-inserimento — implementando direttamente l'insight di trasparenza sociale del footy tipping.`,
+Una classifica live è stata inclusa come superficie di engagement post-inserimento — implementando direttamente l'insight di trasparenza sociale del footy tipping, e fungendo da tessuto connettivo quando gli amici di un giocatore avevano giocato calendari settimanali diversi (uno calcio, uno trotto, uno misto).`,
     },
     outcome: {
       description:
-        "Match 10 ha prodotto una specifica di gioco completa e pronta per l'engineering che è diventata uno dei prodotti di pool betting fondamentali nel portfolio Legolas.bet — e il pattern di trasparenza sociale che ha stabilito è stato poi applicato a Play Together.",
+        "Match 10 è diventato il prodotto-ponte di Legolas: un modo per una trotting-first company di onboardare fan del calcio senza diluire il brand, e un modo per i fan del trotto di provare altri sport a basso rischio dentro un formato familiare. Ha prodotto una specifica di gioco completa e pronta per l'engineering, è diventato uno dei prodotti pool fondamentali nel portfolio Legolas.bet, e il pattern di trasparenza sociale che ha stabilito è stato poi ereditato da Play Together.",
       metrics: [
-        {
-          value: "Sotto 90s",
-          label: "Tempo target per completare l'inserimento (validato in test)",
-        },
-        { value: "10 partite", label: "3 risultati ciascuna — curva di apprendimento zero" },
-        {
-          value: "1°",
-          label: "Classifica social nel pool betting di Legolas.bet",
-        },
+        { value: "Sotto 90s", label: "Tempo target per completare l'inserimento (validato in test)" },
+        { value: "Qualunque sport", label: "Stessa UI, stesso flusso, stessi livelli di premio" },
+        { value: "10 eventi", label: "Pronostici per cartella — curva di apprendimento zero" },
+        { value: "1°", label: "Classifica social nel pool betting di Legolas.bet" },
       ],
     },
     reflection:
-      "La ricerca sul footy tipping è stata il punto di svolta. Stavo pensando al pool betting come meccanismo di premio, non come meccanismo di visibilità sociale. Una volta capito che il muro del pub con i nomi di tutti era il prodotto, il design è diventato ovvio: rendere l'inserimento veloce e la classifica social. Il pool betting è una delle forme più antiche di scommessa per buone ragioni — e capire quella ragione, non solo il formato, è ciò che ha reso funzionale questo design.",
+      "Match 10 mi ha insegnato che un grande prodotto di cross-sell non è un meccanismo di marketing — è un invariante di formato. Legolas era trotting-first; raggiungere i fan del calcio senza alienare la community del trotto richiedeva di trovare un gioco che non appartenesse a nessuno dei due sport ma funzionasse ugualmente per entrambi. La ricerca sul footy tipping è stata il punto di svolta: una volta capito che il muro del pub con i nomi di tutti era il prodotto, il design è diventato ovvio — rendere l'inserimento veloce, la classifica social, e il formato polimorfico attraverso gli sport così che lo stesso prodotto potesse fare da ponte in entrambe le direzioni.",
   },
 
   {
@@ -429,6 +431,7 @@ Una classifica live è stata inclusa come superficie di engagement post-inserime
       "Componente di navigazione sticky",
       "Pattern di navigazione cross-sport",
       "Selettore del tipo di quota",
+      "Menu adattivo per-utente (layer di machine learning sulle abitudini di gioco)",
       "Documentazione del ridisegno della navigazione",
     ],
     category: "design",
@@ -436,14 +439,16 @@ Una classifica live è stata inclusa come superficie di engagement post-inserime
     heroColor: "#1A0808",
     heroImage: "/images/portfolio/pag-42-1.jpg",
     summary:
-      "Ridisegnata la navigazione in-product per il scommettitore sportivo Legolas.bet — risolvendo un problema fondamentale: migliaia di eventi attraverso decine di sport, e utenti che non riuscivano a spostarsi tra di essi senza perdere il loro contesto.",
-    challenge: `Il scommettitore sportivo Legolas.bet era cresciuto da un prodotto di pool betting focalizzato a un scommettitore sportivo multi-sport completo nel giro di un solo anno — tre vertical (Pool Betting, Sportsbook, Casino) lanciati da zero. Quella velocità aveva lasciato l'architettura di navigazione irrisolta. Il prodotto aveva migliaia di eventi ma nessun percorso coerente tra di essi.
+      "Ottimizzata la findability degli eventi nel sportsbook Legolas.bet — l'analisi di flussi e dati ha mostrato dove gli utenti si perdevano; la risposta è stata una navigazione sticky accoppiata a un layer silenzioso di machine learning che adatta il menu alle abitudini di gioco specifiche di ogni utente.",
+    challenge: `Il sportsbook Legolas.bet era cresciuto da un prodotto di pool betting focalizzato a un sportsbook multi-sport completo nel giro di un solo anno — tre vertical (Pool Betting, Sportsbook, Casino) lanciati da zero. Quella velocità aveva lasciato l'architettura di navigazione irrisolta. Il prodotto aveva migliaia di eventi ma nessun percorso coerente tra di essi.
 
-Gli utenti che arrivavano per il calcio non avevano un percorso chiaro verso gli eventi live. Gli utenti che navigavano gli eventi live perdevano il loro contesto nel momento in cui cercavano di cambiare sport. La ricerca degli eventi era del tutto assente — gli utenti scorrevano manualmente le liste per trovare partite specifiche. La navigazione era un layer di attrito che limitava attivamente la profondità dell'engagement e la scoperta cross-sport.
+Il brief era inquadrato come problema di navigazione; l'analisi lo ha riformulato come problema di findability. Gli utenti che arrivavano per il calcio non avevano un percorso chiaro verso gli eventi live. Gli utenti che navigavano gli eventi live perdevano il loro contesto nel momento in cui cercavano di cambiare sport. La ricerca degli eventi era del tutto assente — gli utenti scorrevano manualmente le liste per trovare partite specifiche. La navigazione era un layer di attrito che limitava attivamente la profondità dell'engagement e la scoperta cross-sport.
 
-Un singolo sprint di due settimane è stato assegnato per progettare, testare e rilasciare una soluzione di navigazione. Il vincolo era l'opportunità: con un ambito chiaro e una scadenza fissa, la soluzione doveva essere mirata e immediatamente implementabile.`,
+Un singolo sprint di due settimane è stato assegnato per progettare, testare e rilasciare la correzione strutturale; il layer adattivo è arrivato in un ciclo successivo. Il vincolo era l'opportunità: con un ambito chiaro e una scadenza fissa, la soluzione doveva essere mirata e immediatamente implementabile.`,
     research: {
-      description: `Ho condotto test di usabilità strutturati sulla navigazione esistente con cinque partecipanti, ciascuno con scenari di task identici: trovare un evento live specifico, passare dal calcio al tennis, localizzare il casino, trovare l'impostazione del formato delle quote. Ho mappato dove gli utenti esitavano, dove tornano indietro e dove si arrendevano.
+      description: `Sono partito da analisi di flussi e dati comportamentali: percorsi di sessione, dwell time sulle liste eventi, profondità di scroll, time-to-event, abbandoni per vertical sportivo. I dati hanno reso il problema di findability preciso — gli utenti non si perdevano nell'albero di navigazione; si perdevano dentro liste lunghe e indifferenziate dove gli eventi che gli interessavano stavano sotto la fold.
+
+Ho condotto test di usabilità strutturati sulla navigazione esistente con cinque partecipanti, ciascuno con scenari di task identici: trovare un evento live specifico, passare dal calcio al tennis, localizzare il casino, trovare l'impostazione del formato delle quote. Ho mappato dove gli utenti esitavano, dove tornavano indietro e dove si arrendevano.
 
 Il benchmarking competitivo ha coperto cinque scommettitori sportivi con valutazioni utente elevate (William Hill, bet365, Betway, Unibet, FanDuel) con focus specifico su pattern di navigazione, comportamento di scorrimento e accesso cross-vertical. Il benchmarking ha portato alla luce due pattern che erano diventati aspettative degli utenti attraverso un'esposizione elevata: navigazione sticky e ricerca persistente.`,
       findings: [
@@ -461,7 +466,9 @@ Il meccanismo di cambio sport preserva il contesto: passare dal Calcio al Tennis
 
 Un selettore del tipo di quota è stato aggiunto alla nav persistente — un singolo tocco per alternare tra quote frazionarie, decimali e americane, persistito nelle preferenze dell'utente. Questo ha risolto il reclamo di usabilità più costantemente segnalato nel prodotto.
 
-Il componente è stato progettato per essere implementabile entro la finestra di due settimane — nessuna nuova chiamata API, nessuna modifica al backend richiesta.`,
+Sopra la correzione strutturale, un layer di machine learning ri-classifica il menu e le liste eventi per ogni singolo utente, in base alle sue abitudini di gioco specifiche — gli sport e le competizioni a cui ritorna davvero, gli orari in cui interagisce, la profondità a cui naviga. Il ranking è silenzioso: niente tag "in base alle tue abitudini", niente badge di raccomandazione. Gli utenti non devono imparare un nuovo pattern; il menu che già conoscono mette semplicemente più in alto ciò che gli interessa rispetto a ciò che non gli interessa. La findability diventa una proprietà per-utente, non una proprietà globale condivisa.
+
+Il componente strutturale è stato rilasciato entro lo sprint di due settimane. Il layer di ranking ML è stato specificato durante lo sprint e rilasciato nel ciclo successivo, sopra lo stesso componente senza cambiamenti backend o visivi.`,
     },
     testing: {
       approach:
@@ -475,18 +482,16 @@ Il componente è stato progettato per essere implementabile entro la finestra di
     },
     outcome: {
       description:
-        "Pattern di navigazione progettato, testato e rilasciato entro il sprint di 2 settimane. È diventato il template per l'architettura di navigazione del prodotto nelle versioni successive della piattaforma Legolas.bet.",
+        "La navigazione strutturale è stata rilasciata entro lo sprint di 2 settimane ed è diventata il template per l'architettura di navigazione del prodotto nelle versioni successive. Il layer di ranking di machine learning è arrivato nel ciclo successivo e ha trasformato un menu globale in una superficie per-utente — senza chiedere agli utenti di imparare nulla di nuovo.",
       metrics: [
-        { value: "2 settimane", label: "Ciclo dal design al rilascio" },
-        { value: "-83%", label: "Tempo di cambio sport" },
-        {
-          value: "Sotto 15s",
-          label: "Time-to-event tramite ricerca (erano 47s di scorrimento)",
-        },
+        { value: "2 settimane", label: "Ciclo dal design al rilascio (strutturale)" },
+        { value: "−83%", label: "Tempo di cambio sport" },
+        { value: "Sotto 15s", label: "Time-to-event tramite ricerca (erano 47s)" },
+        { value: "Per-utente", label: "Ranking del menu e delle liste (ML, silenzioso)" },
       ],
     },
     reflection:
-      "Il design della navigazione non riguarda quasi mai la struttura — riguarda i modelli mentali e il momentum. Il pattern sticky ha funzionato perché corrispondeva alle aspettative che gli utenti avevano costruito attraverso l'esposizione ad alta frequenza ad altri prodotti digitali. Soddisfare i modelli mentali stabiliti è spesso più prezioso che innovare su di essi — specialmente in una categoria di prodotto dove gli utenti arrivano con un task specifico e pochissima pazienza per la novità nella navigazione.",
+      "Il design della navigazione non riguarda quasi mai la struttura — riguarda i modelli mentali e il momentum. Il pattern sticky ha funzionato perché corrispondeva alle aspettative che gli utenti avevano costruito attraverso l'esposizione ad alta frequenza ad altri prodotti digitali. Il layer ML ha funzionato perché è rimasto invisibile: la findability è migliorata senza chiedere agli utenti di leggere un nuovo affordance. Soddisfare i modelli mentali stabiliti è spesso più prezioso che innovare su di essi — specialmente in una categoria di prodotto dove gli utenti arrivano con un task specifico e pochissima pazienza per la novità nella navigazione.",
   },
 
   {

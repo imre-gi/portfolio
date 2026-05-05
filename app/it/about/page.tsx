@@ -29,7 +29,7 @@ export default function AboutPageIT() {
       <div className="rule" />
 
       <section className="container-wide py-16 md:py-20">
-        <ChapterHeader number="01 · BIOGRAFIA" title="Chi sono, dal lavoro." />
+        <ChapterHeader number="01 · BIOGRAFIA" title="Chi sono, dalla mia storia lavorativa." />
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-6">
           <div className="md:col-start-4 md:col-span-9 max-w-prose">
             {paragraphs.map((para, i) => (
